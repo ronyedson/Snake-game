@@ -1,0 +1,24 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.scoreboard {
+    align-items: center;
+    justify-content: center;
+}
+
+.scoreboard span {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#gameCanvas {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
