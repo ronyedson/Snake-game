@@ -138,7 +138,7 @@ function has_game_ended() {
 }
 
 function checkPoint() {
-    //Checks if the snake has catch the fly and then adds one more point to the snake 
+    //Checks if the snake has catch the fly and then adds one more point to the score
     if (snake[0].x === fly.x && snake[0].y === fly.y){
         snake.unshift({x:fly.x, y:fly.y});
         createFly();
@@ -150,13 +150,16 @@ function checkPoint() {
 
 function createFly() {
     //Defines a random value for the coordinates of the fly
-    fly.x = Math.round(Math.random() * 40) * 10;
-    fly.y = Math.round(Math.random() * 40) * 10;
+    
+    fly.x = Math.round(Math.random() * (39 - 0) + 0) * 10;
+    fly.y = Math.round(Math.random() * (39 - 0) + 0) * 10;
+    
 
     //Checks if the fly has been generated inside the snake's body and if it is, calls the function again
     for (let i = 0; i < snake.length ; i++) {
         if (fly.x === snake[i].x && fly.y === snake[i].y){
-            createFly()
+            console.log('a')
+            createFly();
         }
     }
 }
