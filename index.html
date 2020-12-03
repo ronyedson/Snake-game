@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Snake Game</title>
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+    
+    <div class="scoreboard">
+        <span id="score" >SCORE: 0</span>
+        <span id="maxScore">MAX SCORE: 0</span>
+    </div>
+
+    <div class="gameContainer">
+        <div class="startMenu">
+            <button id="play" onclick=start()>
+                PLAY
+            </button>
+
+            <button id="colision" onclick=toggleWallColision()>
+                WALL COLISION: ON
+            </button>
+        </div>
+        <canvas id="gameCanvas" width="400" height="400">
+
+        </canvas>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
+
+
