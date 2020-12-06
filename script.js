@@ -36,22 +36,25 @@ function start() {
     hideMainMenu();
     createFly();
     drawnFly();
-    main();
+    mainGame();
 };
 
 
 //Event listener to catch the player's inputs
 document.addEventListener('keydown', changeDirection);
 
-function main() {
+function mainGame() {
     //Checks if the player has lost the game
-    if (has_game_ended()) return;
+    if (has_game_ended()){
+        popGamerOverMenu();
+        return;
+    } 
 
     //Defines that the player can input a move
     changing_direction = false;
 
-
     setTimeout(function onTick() {
+    
         
         clearBoard();
         checkPoint();
@@ -61,13 +64,15 @@ function main() {
         drawnFly();
 
 
-        main();
+        mainGame();
     }, 80)
 
 }
 
+
+
 function hideMainMenu() {
-    document.getElementsByClassName("startMenu")[0].style.zIndex = "0";
+    document.getElementsByClassName("startMenu")[0].style.display = "none";
 }
 
 function toggleWallColision() {
@@ -131,8 +136,9 @@ function changeDirection(event) {
     const UP_KEY = 38;
     const DOWN_KEY = 40;
 
-    const keyPressed = event.keyCode;
+    var keyPressed = event.keyCode;
 
+    console.log("teste")
     //Checks if the player is able to inoput a move and then checks if he isn't moving in the oposite direction
     if (!changing_direction) {
         if (keyPressed === LEFT_KEY && dx === 0) {
@@ -211,4 +217,23 @@ function createFly() {
             createFly();
         }
     }
+}
+
+function reset() {
+    snake = [
+        { x: 200, y: 200 },
+        { x: 190, y: 200 },
+        { x: 180, y: 200 },
+        { x: 170, y: 200 },
+        { x: 160, y: 200 },
+    ];
+
+    dx = 10;
+    dy = 0;
+
+    score = 0;
+}
+
+function popGamerOverMenu() {
+    document.getElementsByClassName("gameOverMenu")[0].style.zIndex = 1;
 }
