@@ -1,39 +1,29 @@
 const board_border = 'black';
 const board_background = 'white';
-const snake_col = 'lightblue';
+const snake_col = '#41caf0';
 const snake_border = 'darkblue';
 
-//Initial body of the snake
-let snake = [
-    { x: 200, y: 200 },
-    { x: 190, y: 200 },
-    { x: 180, y: 200 },
-    { x: 170, y: 200 },
-    { x: 160, y: 200 },
-];
-
-//Initial position of the fly(objective)
-let fly = { x : 0, y : 0};
-
-//Initial direction that the snake is heading 
-//dx = horizontal velocity and dy = vertical velocity
-let dx = 10;
-let dy = 0;
+var maxScore = 0;
 
 var wallColision = true;
 
-let score = 0;
-var maxScore = 0;
-
+const scoreboard = document.getElementsByClassName("scoreboard")[0];
 const snakeboard = document.getElementById('gameCanvas');
 const snakeboard_ctx = snakeboard.getContext('2d');
+
+const startMenu = document.getElementsByClassName("startMenu")[0];
+const gameOverMenu = document.getElementsByClassName("gameOverMenu")[0];
 
 snakeboard_ctx.strokeStyle = board_border;
 snakeboard_ctx.strokeRect(0, 0, snakeboard.width, snakeboard.height);
 
+clearBoard()
+
 //Defines where the fly will be and the starts the game
 function start() {
-    hideMainMenu();
+    resetValues();
+    startMenu.style.display = "none";
+    scoreboard.style.display = "flex";
     createFly();
     drawnFly();
     mainGame();
@@ -48,31 +38,20 @@ function mainGame() {
     if (has_game_ended()){
         popGamerOverMenu();
         return;
-    } 
-
+    }
     //Defines that the player can input a move
     changing_direction = false;
 
     setTimeout(function onTick() {
-    
-        
         clearBoard();
         checkPoint();
         moveSnake();
-        
         drawnSnake();
         drawnFly();
-
 
         mainGame();
     }, 80)
 
-}
-
-
-
-function hideMainMenu() {
-    document.getElementsByClassName("startMenu")[0].style.display = "none";
 }
 
 function toggleWallColision() {
@@ -138,7 +117,6 @@ function changeDirection(event) {
 
     var keyPressed = event.keyCode;
 
-    console.log("teste")
     //Checks if the player is able to inoput a move and then checks if he isn't moving in the oposite direction
     if (!changing_direction) {
         if (keyPressed === LEFT_KEY && dx === 0) {
@@ -219,7 +197,9 @@ function createFly() {
     }
 }
 
-function reset() {
+function resetValues() {
+
+    //Initial body of the snake
     snake = [
         { x: 200, y: 200 },
         { x: 190, y: 200 },
@@ -228,12 +208,36 @@ function reset() {
         { x: 160, y: 200 },
     ];
 
+    //Initial position of the fly
+    fly = { x : 0, y : 0};
+
+    //Initial direction that the snake is heading
+    //dx = horizontal velocity and dy = vertical velocity
     dx = 10;
     dy = 0;
 
     score = 0;
+
+    document.getElementById("score").innerHTML = `SCORE: ${score}`;
+
+    gameOverMenu.style.display = "none";
+
 }
 
 function popGamerOverMenu() {
-    document.getElementsByClassName("gameOverMenu")[0].style.zIndex = 1;
+    gameOverMenu.style.display = "flex";
+    
+    snakeboard_ctx.fillStyle = '#f5f5f5';
+    snakeboard_ctx.strokeStyle = 'black';
+    snakeboard_ctx.fillRect(0, 0, snakeboard.width, snakeboard.height);
+    snakeboard_ctx.strokeRect(0, 0, snakeboard.width, snakeboard.height);
+}
+
+function goBackMainMenu() {
+    clearBoard();
+    resetValues();
+    scoreboard.style.display = 'none';
+    gameOverMenu.style.display = 'none';
+    startMenu.style.display = "flex";
+    
 }

@@ -15,6 +15,8 @@
 
     <div class="gameContainer">
         <div class="startMenu">
+            <span id="gameTitle">SNAKE GAME</span>
+
             <button id="play" onclick=start()>
                 PLAY
             </button>
@@ -25,8 +27,12 @@
         </div>
         <div class="gameOverMenu">
             <span>GAME OVER</span>
-            <button id="restartGame" onclick=restart()>
-                
+            <button id="restartGame" onclick=start()>
+                PLAY AGAIN
+            </button>
+
+            <button id="mainMenu" onclick=goBackMainMenu()>
+                MAIN MENU
             </button>
 
         </div>
